@@ -16,7 +16,7 @@ client.on('ready', ready => {
   console.log('Managing ' + client.user.tag)
 })
 
-const botPrefix = 'P!'
+const botPrefix = 'P.'
 const botLibrary = 'Discord.js'
 
 //varibles
