@@ -58,7 +58,7 @@ client.on('message', message => {
 if (message.content === botPrefix + 'status') {
 const embed = new MessageEmbed()
 .setTitle("Bot status")
-.addField('RAM', "**" + process.memoryUsage().heapUsed / 1024 / 1024 + "**Bytes \(not very correct\)")
+.addField('Memory usage', "**" + process.memoryUsage().heapUsed + "**Bytes \(not exact usage\)")
 .addField('Bot Uptime', prettyMilliseconds(client.uptime))
 .addField('1.0 version \(original version\)',' https://discord.com/api/oauth2/authorize?client_id=809619011553591337&permissions=8&scope=bot ')
 .setFooter('made by \<\/\ℙ\𝚛\𝚎\𝚜\𝚝\𝚘\𝚗\𝒯\⑤\⓿\⓿\>\#9649')
