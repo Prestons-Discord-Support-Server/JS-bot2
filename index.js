@@ -36,15 +36,6 @@ var testingServerID = "798952982015246358"
 //other varibles
 
 
-client.on("ready", async () => {
-    // Start auto posting
-    statcord.autopost();
-});
-statcord.on("autopost-start", () => {
-    // Emitted when statcord autopost starts
-    console.log("Statcord: Started autopost");
-});
-
 statcord.on("post", status => {
     // status = false if the post was successful
     // status = "Error message" or status = Error if there was an error
