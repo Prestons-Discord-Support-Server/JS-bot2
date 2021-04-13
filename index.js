@@ -11,6 +11,14 @@ const bot = new Client();
 const prettyMilliseconds = require("pretty-ms");
 const Database = require("@replit/database")
 const db = new Database()
+const Statcord = require("statcord.js");
+const statcord = new Statcord.Client({
+    client,
+    key: "statcord.com-l3Lz0bcqM0dVLg7o125Z",
+    postCpuStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+    postMemStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+    postNetworkStatistics: true, /* Whether to post memory statistics or not, defaults to true */
+});
 
 client.on('ready', ready => {
   console.log('Managing ' + client.user.tag)
@@ -27,10 +35,27 @@ var testingServerID = "798952982015246358"
 
 //other varibles
 
+
+client.on("ready", async () => {
+    // Start auto posting
+    statcord.autopost();
+});
+statcord.on("autopost-start", () => {
+    // Emitted when statcord autopost starts
+    console.log("Started autopost");
+});
+
+statcord.on("post", status => {
+    // status = false if the post was successful
+    // status = "Error message" or status = Error if there was an error
+    if (!status) console.log("Successful post");
+    else console.error(status);
+});
+
 //mention for info
 client.on('message', message => {
 if(message.mentions.users.first()) {
-      if(message.mentions.users.first().id === '809619011553591337') {
+      if(message.mentions.users.first().id === '830861718145335307') {
           const embed = new MessageEmbed()
           .setDescription('My prefix is ' + botPrefix)
           .addField('Say ' + botPrefix +'help for my commands', ':)')
@@ -42,6 +67,7 @@ if(message.mentions.users.first()) {
 //help command
 client.on('message', message => {
 	if (message.content === botPrefix + 'help') {
+		statcord.post();
 		const embed = new MessageEmbed()
 			.setTitle('Commands')
 			.setColor(0xff0000)
@@ -56,6 +82,7 @@ client.on('message', message => {
 //status command
 client.on('message', message => {
 if (message.content === botPrefix + 'status') {
+		statcord.post();
 const embed = new MessageEmbed()
 .setTitle("Bot status")
 .addField('Bot Uptime', prettyMilliseconds(client.uptime))
@@ -68,6 +95,7 @@ message.channel.send(embed)
 //Ping command
 client.on('message', message => {
 	if (message.content === botPrefix + 'ping') {
+		statcord.post();
 	  const embed = new MessageEmbed()
 	  .setTitle(`Ping`)
 	  .setColor(`RANDOM`)
@@ -105,6 +133,7 @@ client.on('message', message => {
 client.on('message', message => {
 	if (message.author.id === '730898397862559766') {
 		if (message.content.startsWith(botPrefix + 'shutdown')) {
+		statcord.post();
 			process.exit();
 		}
 	}
